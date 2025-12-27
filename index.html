@@ -3,835 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>میکسر و مدیر سناریوهای نقش‌آفرینی</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons for aesthetic visuals -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>موبایل استور | فروشگاه تخصصی گوشی</title>
+    <!-- Font Awesome برای آیکون‌ها -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Library برای انیمیشن‌ها -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;700&display=swap');
+
         body {
             font-family: 'Vazirmatn', sans-serif;
-            direction: rtl;
+            background-color: #0f172a;
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
         }
-        /* Custom scrollbar for better aesthetic */
-        ::-webkit-scrollbar {
-            width: 8px;
+
+        /* هدر و نویگیشن */
+        header {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 90%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        ::-webkit-scrollbar-track {
-            background: #111827; /* Dark background */
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #38bdf8;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #4b5563; /* Gray thumb */
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        /* بخش هیرو (اول سایت) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .delivery-badge {
+            background: #22c55e;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* استایل کارت‌های محصول */
+        .container {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: right;
+            border-right: 5px solid #38bdf8;
+            padding-right: 15px;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #38bdf8;
+        }
+
+        .card img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #38bdf8;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .btn-buy {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
             border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6b7280;
+
+        /* فوتر و اطلاعات تماس */
+        footer {
+            background: #020617;
+            padding: 50px 5%;
+            margin-top: 50px;
         }
-        /* Tailwind configuration for custom aesthetic */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-dark': '#1e293b',
-                        'secondary-dark': '#334155',
-                        'accent': '#60a5fa', /* Blue-400 */
-                        'positive': '#34d399', /* Emerald-400 */
-                        'negative': '#f87171', /* Red-400 */
-                        'independent': '#fbbf24', /* Amber-400 */
-                    }
-                }
-            }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
         }
-        /* Smooth transitions for motion effect */
-        .card-transition {
-            transition: all 0.3s ease-in-out;
+
+        .contact-item i {
+            font-size: 2rem;
+            color: #38bdf8;
+            margin-bottom: 10px;
         }
-        .card-transition:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+
+        .social-link {
+            color: #fb7185;
+            font-size: 1.5rem;
+            text-decoration: none;
         }
-        /* Styling for the quantity controls */
-        .quantity-btn {
-            @apply p-1 w-8 h-8 font-bold text-lg rounded-full transition duration-150 shadow-lg;
-        }
-        .timer-btn {
-            @apply px-5 py-3 font-bold rounded-full transition duration-300 transform hover:scale-105 shadow-xl flex items-center justify-center;
-        }
+
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen p-4 sm:p-8">
+<body>
 
-    <!-- Main Application Container -->
-    <div id="app" class="max-w-6xl mx-auto">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-accent mb-2">
-                مرجع سناریو | رُخ
-            </h1>
-            <p class="text-gray-400 text-lg">
-                معرفی سناریوهای روز و ابزار مدیریت بازی‌های حضوری
-            </p>
-        </header>
+    <header>
+        <div class="logo">MOBILE <span style="color:white">SHOP</span></div>
+        <nav>
+            <a href="#new">گوشی نو</a>
+            <a href="#used">کارکرده</a>
+            <a href="#accessories">لوازم جانبی</a>
+            <a href="#contact">تماس با ما</a>
+        </nav>
+    </header>
 
-        <!-- Tab Navigation -->
-        <div class="flex justify-center mb-8 border-b-2 border-primary-dark sticky top-0 bg-gray-900 z-10 p-2 -mx-4 sm:mx-0">
-            <button id="tab-reference" onclick="switchTab('reference')"
-                    class="tab-button w-1/3 py-3 text-lg font-medium text-gray-400 border-b-4 border-transparent hover:border-secondary-dark hover:text-gray-200 transition duration-300">
-                سناریوهای معروف
-            </button>
-            <button id="tab-mixer" onclick="switchTab('mixer')"
-                    class="tab-button w-1/3 py-3 text-lg font-bold border-b-4 border-accent text-accent transition duration-300">
-                مخلوط‌کن سناریو
-            </button>
-            <button id="tab-manager" onclick="switchTab('manager')"
-                    class="tab-button w-1/3 py-3 text-lg font-medium text-gray-400 border-b-4 border-transparent hover:border-secondary-dark hover:text-gray-200 transition duration-300">
-                مدیریت بازی
-            </button>
+    <section class="hero">
+        <div data-aos="zoom-in">
+            <span class="delivery-badge"><i class="fas fa-truck"></i> ارسال سریع با پیک به تمام نقاط</span>
+            <h1>جدیدترین تکنولوژی در دستان شما</h1>
+            <p>مرکز تخصصی فروش گوشی‌های هوشمند و لوازم جانبی اورجینال</p>
         </div>
+    </section>
 
-        <!-- Content Sections -->
-        
-        <!-- 1. Scenario Reference Tab -->
-        <div id="content-reference" class="tab-content hidden">
-            <h2 class="text-3xl font-bold mb-6 text-gray-100">سه‌گانه روز: سناریوهای پیشنهادی</h2>
-            <div id="scenarios-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Scenarios will be injected here by JavaScript -->
+    <!-- بخش گوشی های نو -->
+    <div class="container" id="new">
+        <h2 class="section-title" data-aos="fade-right">گوشی‌های نو</h2>
+        <div class="grid">
+            <!-- کارت نمونه ۱ -->
+            <div class="card" data-aos="fade-up">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=iPhone+15" alt="گوشی">
+                <h3>iPhone 15 Pro Max</h3>
+                <span class="price">۸۵,۰۰۰,۰۰۰ تومان</span>
+                <button class="btn-buy">مشاهده و خرید</button>
             </div>
-        </div>
-
-        <!-- 2. Scenario Mixer Tab (Updated: Plus/Minus Buttons) -->
-        <div id="content-mixer" class="tab-content">
-            <h2 class="text-3xl font-bold mb-6 text-gray-100">ابزار ساخت سناریوی جدید (ترکیب نقش)</h2>
-
-            <div class="bg-secondary-dark p-6 rounded-xl shadow-2xl mb-8">
-                <!-- Scenario Name Input -->
-                <div class="mb-6">
-                    <label for="mixer-scenario-name-input" class="block text-lg font-bold text-gray-200 mb-2">نام سناریوی دلخواه (اختیاری):</label>
-                    <input type="text" id="mixer-scenario-name-input" placeholder="مثلاً: شورش وایکینگ‌های شب‌گرد"
-                           class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-3 focus:ring-accent focus:border-accent transition">
-                </div>
-
-                <p class="text-gray-300 mb-4 border-b border-primary-dark pb-3">
-                    تعداد مورد نظر (۰ تا ۱۰) از هر نقش را انتخاب کنید.
-                </p>
-                
-                <!-- Warning Box for validation -->
-                <div id="mixer-warning" class="hidden bg-red-900 border border-red-700 text-red-300 p-3 rounded-lg mb-4" role="alert">
-                    <i data-lucide="alert-triangle" class="w-5 h-5 ml-2 inline"></i>
-                    <span id="mixer-warning-text"></span>
-                </div>
-
-                <!-- Mixer Controls and Filters -->
-                <div id="mixer-roles-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 max-h-96 overflow-y-auto pr-2">
-                    <!-- Roles will be injected here by JavaScript with plus/minus buttons -->
-                </div>
-
-                <div class="flex justify-center mt-6">
-                    <button id="update-scenario-btn" onclick="updateMixerStats()"
-                        class="bg-accent hover:bg-blue-600 text-gray-900 font-extrabold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
-                        به‌روزرسانی آمار سناریوی ترکیبی
-                    </button>
-                </div>
+            <!-- کارت نمونه ۲ -->
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=S24+Ultra" alt="گوشی">
+                <h3>Samsung S24 Ultra</h3>
+                <span class="price">۷۲,۰۰۰,۰۰۰ تومان</span>
+                <button class="btn-buy">مشاهده و خرید</button>
             </div>
-
-            <!-- Summary & Stats Section -->
-            <div id="mixer-summary" class="bg-primary-dark p-6 rounded-xl shadow-xl border border-gray-700">
-                <h3 class="text-2xl font-bold mb-4 flex items-center text-accent">
-                    <i data-lucide="bar-chart-3" class="w-6 h-6 ml-2"></i>
-                    خلاصه آمار سناریوی ترکیبی
-                </h3>
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <p class="text-sm text-gray-400">تعداد کل بازیکنان (نقش‌های منحصربه‌فرد)</p>
-                        <p id="stat-total-players" class="text-3xl font-bold text-white">0</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <p class="text-sm text-gray-400">تعداد تیم شهروند / ساید مثبت</p>
-                        <p id="stat-positive-side" class="text-3xl font-bold text-positive">0</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <p class="text-sm text-gray-400">تعداد تیم مافیا/گرگینه / ساید منفی</p>
-                        <p id="stat-negative-side" class="text-3xl font-bold text-negative">0</p>
-                    </div>
-                    <div class="bg-gray-800 p-4 rounded-lg">
-                        <p class="text-sm text-gray-400">نقش‌های مستقل</p>
-                        <p id="stat-independent-side" class="text-3xl font-bold text-independent">0</p>
-                    </div>
-                </div>
-
-                <!-- Generated Scenario Detail -->
-                <div id="generated-scenario-detail" class="mt-6 border-t border-gray-700 pt-4">
-                    <h4 class="text-xl font-bold text-gray-200 mb-3">نقش‌های انتخاب شده:</h4>
-                    <ul id="selected-roles-list" class="list-disc pr-5 space-y-2 text-gray-300">
-                        <li class="text-gray-500">نقشی انتخاب نشده است.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. Game Manager Tab (NEW: Dedicated GM Tool) -->
-        <div id="content-manager" class="tab-content hidden">
-            <h2 class="text-3xl font-bold mb-6 text-gray-100">ابزار گردانندگی و مدیریت بازی حضوری</h2>
-
-            <div class="bg-secondary-dark p-6 rounded-xl shadow-2xl mb-8">
-                <h3 class="text-2xl font-bold text-accent mb-4 border-b border-primary-dark pb-2">۱. تنظیمات اولیه و سناریو</h3>
-                
-                <!-- Scenario Selector -->
-                <div class="mb-6">
-                    <label for="manager-scenario-select" class="block text-lg font-bold text-gray-200 mb-2">انتخاب سناریو:</label>
-                    <select id="manager-scenario-select" onchange="renderManagerSetup()"
-                            class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-3 focus:ring-accent focus:border-accent transition">
-                        <option value="">لطفاً یک سناریو را انتخاب کنید...</option>
-                        <!-- Options filled by JS -->
-                    </select>
-                </div>
-                
-                <!-- Time Settings -->
-                <div id="time-settings-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                    <div>
-                        <label for="talk-time-input" class="block text-md font-medium text-gray-300 mb-1">زمان صحبت روز (ثانیه):</label>
-                        <input type="number" id="talk-time-input" value="60" min="10" max="300"
-                               class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-3 focus:ring-accent focus:border-accent">
-                    </div>
-                    <div>
-                        <label for="challenge-time-input" class="block text-md font-medium text-gray-300 mb-1">زمان چالش/دفاع (ثانیه):</label>
-                        <input type="number" id="challenge-time-input" value="30" min="10" max="180"
-                               class="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-3 focus:ring-accent focus:border-accent">
-                    </div>
-                </div>
-
-                <!-- Player Role Assignment (Dynamic) -->
-                <h3 class="text-2xl font-bold text-accent mb-4 border-b border-primary-dark pb-2">۲. تعیین نقش‌ها و ثبت بازیکنان</h3>
-                
-                <div id="manager-setup-container" class="bg-primary-dark p-4 rounded-lg hidden">
-                    <p class="text-gray-400 mb-4">لطفاً نام بازیکنان را به ازای هر نقش، در خطوط جداگانه وارد کنید. (مثلاً: نفر اول <br> نفر دوم)</p>
-                    <div id="manager-roles-input-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-80 overflow-y-auto pr-2 mb-4">
-                        <!-- Role inputs for player names will be injected here -->
-                    </div>
-                    
-                    <div class="flex justify-center mt-6 border-t border-gray-700 pt-4">
-                        <button onclick="startGame()"
-                            class="bg-positive hover:bg-emerald-500 text-gray-900 font-extrabold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center">
-                            <i data-lucide="shuffle" class="w-5 h-5 ml-2"></i>
-                            شروع و چیدمان تصادفی نقش‌ها
-                        </button>
-                    </div>
-                </div>
-
-                <div id="manager-warning" class="hidden bg-red-900 border border-red-700 text-red-300 p-3 rounded-lg mt-4" role="alert">
-                    <i data-lucide="alert-triangle" class="w-5 h-5 ml-2 inline"></i>
-                    <span id="manager-warning-text"></span>
-                </div>
-            </div>
-
-            <!-- Game Live Management Area -->
-            <div id="game-live-manager" class="bg-primary-dark p-6 rounded-xl shadow-xl border border-gray-700 hidden">
-                <h3 class="text-2xl font-bold mb-4 flex items-center text-positive">
-                    <i data-lucide="clock" class="w-6 h-6 ml-2"></i>
-                    میز گردانندگی - زمان‌بندی و چیدمان نهایی
-                </h3>
-
-                <!-- Timer Display -->
-                <div class="text-center mb-6 p-4 bg-gray-800 rounded-lg shadow-inner">
-                    <p class="text-lg text-gray-400 mb-2">زمان فعلی:</p>
-                    <div id="timer-display" class="text-7xl font-mono font-extrabold text-accent">00:00</div>
-                    <p id="timer-status" class="text-lg font-bold text-white mt-1">آماده به کار</p>
-                </div>
-
-                <!-- Timer Controls -->
-                <div class="flex flex-wrap justify-center space-x-2 space-x-reverse gap-y-3 mb-6 border-b border-gray-700 pb-4">
-                    <button onclick="startTimer('talk')" id="start-talk-btn"
-                        class="timer-btn bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto">
-                        <i data-lucide="volume-2" class="w-5 h-5 ml-2"></i>
-                        شروع صحبت روز
-                    </button>
-                    <button onclick="startTimer('challenge')" id="start-challenge-btn"
-                        class="timer-btn bg-yellow-600 hover:bg-yellow-700 text-gray-900 w-full sm:w-auto">
-                        <i data-lucide="gavel" class="w-5 h-5 ml-2"></i>
-                        شروع چالش/دفاع
-                    </button>
-                    <button onclick="pauseTimer()" id="pause-timer-btn"
-                        class="timer-btn bg-gray-600 hover:bg-gray-700 text-white w-full sm:w-auto">
-                        <i data-lucide="pause" class="w-5 h-5 ml-2"></i>
-                        توقف
-                    </button>
-                    <button onclick="resetTimer()" id="reset-timer-btn"
-                        class="timer-btn bg-red-600 hover:bg-red-700 text-white w-full sm:w-auto">
-                        <i data-lucide="rotate-ccw" class="w-5 h-5 ml-2"></i>
-                        ریست
-                    </button>
-                </div>
-
-                <!-- Final Scenario Setup -->
-                <h4 class="text-xl font-bold text-gray-200 mb-3 border-t border-gray-700 pt-4 flex items-center">
-                    <i data-lucide="clipboard-list" class="w-5 h-5 ml-2"></i>
-                    چیدمان نهایی بازی: (نقش: بازیکن)
-                </h4>
-                <div id="final-setup-list" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 text-lg">
-                    <p class="text-gray-500 col-span-full">لطفاً ابتدا چیدمان را شروع کنید.</p>
-                </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Xiaomi+14" alt="گوشی">
+                <h3>Xiaomi 14 Pro</h3>
+                <span class="price">۴۵,۰۰۰,۰۰۰ تومان</span>
+                <button class="btn-buy">مشاهده و خرید</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal for Role Description (Aesthetic requirement) -->
-    <div id="role-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-opacity duration-300">
-        <div class="bg-primary-dark rounded-2xl w-full max-w-md p-6 sm:p-8 shadow-2xl transform scale-95 transition-all duration-500">
-            <div class="flex justify-between items-start mb-4 border-b border-gray-700 pb-3">
-                <h3 id="modal-role-title" class="text-2xl font-extrabold text-accent"></h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-100 transition">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+    <!-- بخش گوشی های دست دوم -->
+    <div class="container" id="used" style="background: rgba(255,255,255,0.02)">
+        <h2 class="section-title" data-aos="fade-right">گوشی‌های دست دوم (در حد نو)</h2>
+        <div class="grid">
+            <div class="card" data-aos="flip-left">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=iPhone+13" alt="گوشی">
+                <h3>iPhone 13 (Used)</h3>
+                <span class="price">۳۲,۰۰۰,۰۰۰ تومان</span>
+                <button class="btn-buy" style="background:#94a3b8">جزئیات سلامت باتری</button>
             </div>
-            <p id="modal-role-scenario" class="text-sm text-gray-500 mb-4"></p>
-            <div class="mb-4">
-                <span id="modal-role-alignment" class="inline-block px-3 py-1 rounded-full text-xs font-semibold"></span>
+            <div class="card" data-aos="flip-left" data-aos-delay="100">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=S21+FE" alt="گوشی">
+                <h3>Samsung S21 FE</h3>
+                <span class="price">۱۸,۵۰۰,۰۰۰ تومان</span>
+                <button class="btn-buy" style="background:#94a3b8">جزئیات سلامت باتری</button>
             </div>
-            <p id="modal-role-description" class="text-gray-300 leading-7"></p>
         </div>
     </div>
 
+    <!-- بخش لوازم جانبی -->
+    <div class="container" id="accessories">
+        <h2 class="section-title" data-aos="fade-right">قاب و ایرپاد</h2>
+        <div class="grid">
+            <div class="card" data-aos="zoom-in">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Airpods" alt="ایرپاد">
+                <h3>AirPods Pro 2</h3>
+                <span class="price">۱۲,۴۰۰,۰۰۰ تومان</span>
+                <button class="btn-buy">خرید</button>
+            </div>
+            <div class="card" data-aos="zoom-in" data-aos-delay="100">
+                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Case" alt="قاب">
+                <h3>قاب سیلیکونی اصل</h3>
+                <span class="price">۴۵۰,۰۰۰ تومان</span>
+                <button class="btn-buy">خرید</button>
+            </div>
+        </div>
+    </div>
 
-    <script type="module">
-        // --- Role Data Structure (Hypothetical Scenarios) ---
-        const SCENARIOS = [
-            {
-                id: 1,
-                name: "شهروندان زاگرس (Zagros Citizens)",
-                minPlayers: 10,
-                maxPlayers: 12,
-                roles: [
-                    { name: "کارآگاه", id: "d1", alignment: "شهروند", description: "شب‌ها می‌تواند از یک نفر استعلام بگیرد." },
-                    { name: "دکتر", id: "d2", alignment: "شهروند", description: "هر شب می‌تواند جان یک نفر (حتی خودش) را نجات دهد." },
-                    { name: "تفنگدار", id: "a1", alignment: "شهروند", description: "یک بار در بازی می‌تواند به یک نفر شلیک کند." },
-                    { name: "شهروند ساده", id: "c1", alignment: "شهروند", description: "هیچ قابلیت ویژه‌ای ندارد." },
-                    { name: "مافیای ساده", id: "m1", alignment: "مافیا", description: "هر شب به همراه دیگر مافیاها برای قتل یک نفر رأی می‌دهد." },
-                    { name: "رئیس مافیا", id: "m2", alignment: "مافیا", description: "اگر تنها بماند، قابلیت تیر نهایی یا انتخاب شب را دارد." }
-                ],
-                defaultSetup: { "d1": 1, "d2": 1, "a1": 1, "c1": 5, "m1": 2, "m2": 1 }
-            },
-            {
-                id: 2,
-                name: "شب‌گردان لاهیجان (Lahijan Night Walkers)",
-                minPlayers: 13,
-                maxPlayers: 15,
-                roles: [
-                    { name: "گرگینه آلفا", id: "w1", alignment: "گرگینه", description: "رهبر گرگینه‌هاست و اگر تیر بخورد، تنها یک روز می‌خوابد." },
-                    { name: "پیشگو", id: "s1", alignment: "شهروند", description: "هر شب یک نفر را انتخاب کرده و از ساید او مطلع می‌شود." },
-                    { name: "شکارچی", id: "h1", alignment: "شهروند", description: "اگر در طول بازی از بازی خارج شود، می‌تواند یک نفر را با خود ببرد." },
-                    { name: "معشوقه", id: "s2", alignment: "مستقل", description: "هدف او این است که با فردی که انتخاب می‌کند تا پایان بازی زنده بماند." },
-                    { name: "تغییردهنده", id: "s3", alignment: "شهروند", description: "می‌تواند نقش یک نفر را به شهروند ساده تغییر دهد." },
-                    { name: "دزد", id: "t1", alignment: "مافیا", description: "می‌تواند نقش یک نفر را برای یک شب بدزدد." }
-                ],
-                defaultSetup: { "w1": 1, "s1": 1, "h1": 1, "s2": 1, "s3": 1, "t1": 2, "c1": 7 } // 14 players total
-            }
-        ];
+    <!-- فوتر و تماس -->
+    <footer id="contact">
+        <div class="contact-info">
+            <div class="contact-item" data-aos="fade-up">
+                <i class="fas fa-phone"></i>
+                <h3>تلفن تماس</h3>
+                <p>شماره صاحب مغازه: [اینجا بنویس]</p>
+            </div>
+            <div class="contact-item" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>آدرس فروشگاه</h3>
+                <p>[آدرس شما اینجا قرار می‌گیرد]</p>
+            </div>
+            <div class="contact-item" data-aos="fade-up" data-aos-delay="200">
+                <i class="fab fa-instagram"></i>
+                <h3>اینستاگرام</h3>
+                <p><a href="#" class="social-link">@[پیج شما]</a></p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 50px; opacity: 0.5;">
+            <p>طراحی شده برای دمو فروشگاه موبایل</p>
+        </div>
+    </footer>
 
-        // State for the mixer (selected roles)
-        let selectedRoles = {};
-
-        // State for the manager (Timer and Game)
-        let managerTimerInterval = null;
-        let managerTimeRemaining = 0;
-        let managerTimerStatus = 'stopped'; // 'stopped', 'running', 'paused'
-        
-        // --- Utility Functions ---
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-        
-        function getAlignmentClass(alignment, type = 'text') {
-            const map = {
-                "شهروند": (type === 'bg' ? 'bg-positive/30 border-positive' : 'text-positive border-positive'),
-                "مافیا": (type === 'bg' ? 'bg-negative/30 border-negative' : 'text-negative border-negative'),
-                "گرگینه": (type === 'bg' ? 'bg-negative/30 border-negative' : 'text-negative border-negative'),
-                "مستقل": (type === 'bg' ? 'bg-independent/30 border-independent' : 'text-independent border-independent'),
-            };
-            return map[alignment] || 'text-gray-400 border-gray-700';
-        }
-
-        // --- Initialization and Rendering Functions ---
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Set default tab to Mixer
-            switchTab('mixer');
-            renderScenarios();
-            renderMixerRoles();
-            populateManagerScenarioSelect();
-            updateMixerStats();
-            lucide.createIcons();
+    <!-- اسکریپت‌های انیمیشن -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
         });
-
-        // Renders the cards for the 3 famous scenarios
-        function renderScenarios() {
-            const list = document.getElementById('scenarios-list');
-            list.innerHTML = ''; 
-
-            SCENARIOS.forEach(scenario => {
-                const iconMap = { 1: 'building', 2: 'moon', 3: 'ship-wheel' };
-                const icon = iconMap[scenario.id] || 'map';
-                const positiveCount = Object.keys(scenario.defaultSetup).reduce((sum, roleId) => {
-                    const role = scenario.roles.find(r => r.id === roleId);
-                    return sum + (role && role.alignment === 'شهروند' ? scenario.defaultSetup[roleId] : 0);
-                }, 0);
-                const negativeCount = Object.keys(scenario.defaultSetup).reduce((sum, roleId) => {
-                    const role = scenario.roles.find(r => r.id === roleId);
-                    return sum + (role && (role.alignment === 'مافیا' || role.alignment === 'گرگینه') ? scenario.defaultSetup[roleId] : 0);
-                }, 0);
-
-                const card = `
-                    <div class="bg-secondary-dark p-6 rounded-xl shadow-xl border border-primary-dark card-transition flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center mb-4">
-                                <i data-lucide="${icon}" class="w-8 h-8 text-accent ml-3"></i>
-                                <h3 class="text-xl font-extrabold text-white">${scenario.name}</h3>
-                            </div>
-                            <p class="text-gray-400 mb-4 text-sm">
-                                این سناریو بر تعادل ${negativeCount} نقش ساید منفی در مقابل ${positiveCount} نقش ساید مثبت تمرکز دارد.
-                            </p>
-                            <div class="text-sm text-gray-300 mb-4">
-                                <span class="font-semibold text-accent">بازیکنان:</span> ${scenario.minPlayers} تا ${scenario.maxPlayers} نفر
-                            </div>
-                        </div>
-
-                        <!-- Roles List -->
-                        <div class="mt-4">
-                            <h4 class="text-md font-semibold text-gray-300 mb-2 border-t border-gray-700 pt-3">نقش‌های کلیدی:</h4>
-                            <div class="grid grid-cols-2 gap-2">
-                                ${scenario.roles.map(role => `
-                                    <button onclick="openModal('${role.id}', ${scenario.id})"
-                                        class="text-right text-sm px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-lg text-gray-200 transition duration-200 truncate flex items-center justify-between group">
-                                        <span class="truncate">${role.name}</span>
-                                        <i data-lucide="info" class="w-4 h-4 mr-1 text-gray-400 group-hover:text-accent transition"></i>
-                                    </button>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                list.innerHTML += card;
-            });
-            lucide.createIcons();
-        }
-
-
-        // --- Mixer Functions (Updated with +/- buttons) ---
-
-        // Renders the roles for the mixer, now with plus/minus buttons
-        function renderMixerRoles() {
-            const list = document.getElementById('mixer-roles-list');
-            list.innerHTML = '';
-            
-            // Collect all unique roles from all scenarios
-            const allRoles = {};
-            SCENARIOS.forEach(scenario => {
-                scenario.roles.forEach(role => {
-                    // Create a unique ID that includes the scenario ID to prevent key collision if roles have same ID but different scenarios
-                    const roleUniqueId = `role-${scenario.id}-${role.id}`;
-                    if (!allRoles[roleUniqueId]) {
-                        allRoles[roleUniqueId] = {
-                            id: roleUniqueId,
-                            name: role.name,
-                            alignment: role.alignment,
-                            description: role.description,
-                            scenarioName: scenario.name
-                        };
-                    }
-                });
-            });
-
-            // Render all unique roles
-            Object.values(allRoles).forEach(role => {
-                const currentQuantity = selectedRoles[role.id] ? selectedRoles[role.id].quantity : 0;
-                
-                // Style based on selection status (quantity > 0)
-                const isSelected = currentQuantity > 0 ? 'border-accent ring-2 ring-accent bg-blue-900 bg-opacity-30' : 'border-gray-700 hover:border-accent/50 hover:bg-gray-700/50';
-
-                const alignmentClass = getAlignmentClass(role.alignment, 'bg');
-
-                const roleHtml = `
-                    <div id="container-${role.id}" class="p-3 rounded-xl border-2 ${isSelected} transition duration-200 shadow-md flex flex-col">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-md font-medium text-gray-200 truncate">${role.name}</span>
-                            <span class="px-2 py-0.5 rounded-full text-xs font-semibold border ${alignmentClass}">${role.alignment}</span>
-                        </div>
-                        <div class="flex justify-between items-center mt-1">
-                            <p class="text-xs text-gray-400 truncate ml-4">سناریو: ${role.scenarioName.split(' ')[0]}</p>
-                            <div class="flex items-center space-x-2 space-x-reverse">
-                                <button onclick="changeRoleQuantity('${role.id}', '${role.name}', '${role.alignment}', '${role.description}', '${role.scenarioName}', -1)"
-                                    class="quantity-btn bg-red-600 hover:bg-red-700 text-white disabled:opacity-50"
-                                    id="minus-btn-${role.id}" ${currentQuantity <= 0 ? 'disabled' : ''}>
-                                    &ndash;
-                                </button>
-                                <span id="qty-display-${role.id}" class="text-xl font-extrabold w-8 text-center">${currentQuantity}</span>
-                                <button onclick="changeRoleQuantity('${role.id}', '${role.name}', '${role.alignment}', '${role.description}', '${role.scenarioName}', 1)"
-                                    class="quantity-btn bg-green-600 hover:bg-green-700 text-white disabled:opacity-50"
-                                    id="plus-btn-${role.id}" ${currentQuantity >= 10 ? 'disabled' : ''}>
-                                    +
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                list.innerHTML += roleHtml;
-            });
-        }
-
-        window.changeRoleQuantity = function(roleUniqueId, name, alignment, description, scenarioName, delta) {
-            let currentQuantity = selectedRoles[roleUniqueId] ? selectedRoles[roleUniqueId].quantity : 0;
-            let newQuantity = currentQuantity + delta;
-            
-            // Enforce bounds (0 to 10)
-            if (newQuantity < 0) newQuantity = 0;
-            if (newQuantity > 10) newQuantity = 10;
-            
-            // Update state
-            const roleData = { name, alignment, description, scenarioName, quantity: newQuantity };
-
-            if (newQuantity > 0) {
-                selectedRoles[roleUniqueId] = roleData;
-            } else {
-                delete selectedRoles[roleUniqueId];
-            }
-
-            // Update UI elements
-            const container = document.getElementById(`container-${roleUniqueId}`);
-            const qtyDisplay = document.getElementById(`qty-display-${roleUniqueId}`);
-            const plusBtn = document.getElementById(`plus-btn-${roleUniqueId}`);
-            const minusBtn = document.getElementById(`minus-btn-${roleUniqueId}`);
-            
-            qtyDisplay.innerText = newQuantity;
-            
-            // Update button states
-            plusBtn.disabled = newQuantity >= 10;
-            minusBtn.disabled = newQuantity <= 0;
-
-            // Update card style
-            if (newQuantity > 0) {
-                container.classList.remove('border-gray-700', 'hover:border-accent/50', 'hover:bg-gray-700/50');
-                container.classList.add('border-accent', 'ring-2', 'ring-accent', 'bg-blue-900', 'bg-opacity-30');
-            } else {
-                container.classList.add('border-gray-700', 'hover:border-accent/50', 'hover:bg-gray-700/50');
-                container.classList.remove('border-accent', 'ring-2', 'ring-accent', 'bg-blue-900', 'bg-opacity-30');
-            }
-
-            // Recalculate stats immediately
-            updateMixerStats();
-        }
-
-        window.updateMixerStats = function() {
-            const rolesArray = Object.values(selectedRoles);
-            let totalPlayers = 0;
-            let positive = 0;
-            let negative = 0;
-            let independent = 0;
-
-            const listEl = document.getElementById('selected-roles-list');
-            listEl.innerHTML = '';
-            document.getElementById('mixer-warning').classList.add('hidden'); // Hide warning
-
-            if (rolesArray.length === 0) {
-                document.getElementById('stat-total-players').innerText = '0';
-                document.getElementById('stat-positive-side').innerText = '0';
-                document.getElementById('stat-negative-side').innerText = '0';
-                document.getElementById('stat-independent-side').innerText = '0';
-                listEl.innerHTML = '<li class="text-gray-500">نقشی انتخاب نشده است.</li>';
-                return;
-            }
-
-            rolesArray.forEach(role => {
-                const quantity = role.quantity || 0;
-                totalPlayers += quantity;
-
-                const li = document.createElement('li');
-                li.className = 'flex justify-between items-center';
-                li.innerHTML = `
-                    <span class="text-white">${role.name} (<span class="text-accent">${quantity} نفر</span>)</span>
-                    <span class="text-sm border px-2 py-0.5 rounded-full ${getAlignmentClass(role.alignment)}">${role.alignment}</span>
-                `;
-                listEl.appendChild(li);
-
-                if (role.alignment === 'شهروند') {
-                    positive += quantity;
-                } else if (role.alignment === 'مافیا' || role.alignment === 'گرگینه') {
-                    negative += quantity;
-                } else if (role.alignment === 'مستقل') {
-                    independent += quantity;
-                }
-            });
-
-            // Update stats
-            document.getElementById('stat-total-players').innerText = totalPlayers.toString();
-            document.getElementById('stat-positive-side').innerText = positive.toString();
-            document.getElementById('stat-negative-side').innerText = negative.toString();
-            document.getElementById('stat-independent-side').innerText = independent.toString();
-        }
-
-
-        // --- Game Manager Functions (NEW) ---
-
-        function populateManagerScenarioSelect() {
-            const selectEl = document.getElementById('manager-scenario-select');
-            SCENARIOS.forEach(scenario => {
-                const option = document.createElement('option');
-                option.value = scenario.id;
-                option.innerText = scenario.name;
-                selectEl.appendChild(option);
-            });
-        }
-
-        window.renderManagerSetup = function() {
-            const scenarioId = document.getElementById('manager-scenario-select').value;
-            const setupContainer = document.getElementById('manager-setup-container');
-            const roleListEl = document.getElementById('manager-roles-input-list');
-            
-            document.getElementById('manager-warning').classList.add('hidden'); // Hide warning
-
-            if (!scenarioId) {
-                setupContainer.classList.add('hidden');
-                roleListEl.innerHTML = '';
-                return;
-            }
-
-            const scenario = SCENARIOS.find(s => s.id === parseInt(scenarioId));
-            roleListEl.innerHTML = '';
-            setupContainer.classList.remove('hidden');
-
-            scenario.roles.forEach(role => {
-                // Determine default quantity
-                const defaultQty = scenario.defaultSetup[role.id] || 0;
-                const alignmentClass = getAlignmentClass(role.alignment);
-
-                // Player name input area
-                const roleInput = `
-                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-lg font-bold text-white">${role.name}</span>
-                            <span class="text-sm px-2 py-0.5 rounded-full border ${alignmentClass}">${role.alignment}</span>
-                        </div>
-                        <div class="mb-3 flex items-center">
-                            <label class="text-sm text-gray-400 ml-2">تعداد:</label>
-                            <input type="number" id="gm-qty-${role.id}" value="${defaultQty}" min="0" max="15" 
-                                class="w-16 bg-gray-700 text-white border border-gray-600 rounded-lg p-1 text-center text-sm focus:ring-accent focus:border-accent">
-                        </div>
-                        <label for="gm-players-${role.id}" class="block text-sm font-medium text-gray-300 mb-1">نام بازیکنان (هر نام در یک خط):</label>
-                        <textarea id="gm-players-${role.id}" rows="4" placeholder="مثال:\nعلی\nرضا\nمریم"
-                            class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg p-2 text-sm focus:ring-accent focus:border-accent"></textarea>
-                    </div>
-                `;
-                roleListEl.innerHTML += roleInput;
-            });
-        }
-
-        window.startGame = function() {
-            const scenarioId = document.getElementById('manager-scenario-select').value;
-            const scenario = SCENARIOS.find(s => s.id === parseInt(scenarioId));
-            const playerInputs = document.querySelectorAll('[id^="gm-players-"]');
-            
-            const showWarning = (message) => {
-                document.getElementById('manager-warning-text').innerText = message;
-                document.getElementById('manager-warning').classList.remove('hidden');
-                lucide.createIcons();
-            };
-            const hideWarning = () => document.getElementById('manager-warning').classList.add('hidden');
-
-            if (!scenario) {
-                showWarning("لطفاً یک سناریو برای شروع بازی انتخاب کنید.");
-                return;
-            }
-
-            let allPlayers = [];
-            let allRoles = [];
-            let totalRolesCount = 0;
-
-            // 1. Collect all roles with their assigned quantity
-            scenario.roles.forEach(role => {
-                const qtyInput = document.getElementById(`gm-qty-${role.id}`);
-                const quantity = parseInt(qtyInput.value) || 0;
-                totalRolesCount += quantity;
-                for (let i = 0; i < quantity; i++) {
-                    allRoles.push(role);
-                }
-            });
-
-            // 2. Collect all player names
-            playerInputs.forEach(input => {
-                const names = input.value.split('\n')
-                                         .map(name => name.trim())
-                                         .filter(name => name.length > 0);
-                allPlayers.push(...names);
-            });
-
-            // 3. Validation
-            if (totalRolesCount === 0) {
-                showWarning("تعداد نقش‌های بازی صفر است. لطفاً تعداد نقش‌ها را تنظیم کنید.");
-                return;
-            }
-            if (allPlayers.length !== totalRolesCount) {
-                showWarning(`خطا در تعداد: ${allPlayers.length} نام بازیکن وارد شده است، اما تعداد کل نقش‌ها ${totalRolesCount} می‌باشد. تعداد باید برابر باشد.`);
-                return;
-            }
-
-            hideWarning();
-
-            // 4. Shuffle and Assign
-            allRoles = shuffleArray(allRoles);
-            allPlayers = shuffleArray(allPlayers);
-            
-            const finalSetup = [];
-            for (let i = 0; i < allRoles.length; i++) {
-                finalSetup.push({
-                    role: allRoles[i].name,
-                    player: allPlayers[i],
-                    alignment: allRoles[i].alignment
-                });
-            }
-
-            // 5. Render Final Setup and Timer
-            renderFinalSetup(finalSetup);
-            // Initialize timer with talk time
-            const talkTime = parseInt(document.getElementById('talk-time-input').value) || 60;
-            managerTimeRemaining = talkTime;
-            updateTimerDisplay();
-            pauseTimer(); // Ensure it starts paused/stopped
-            document.getElementById('game-live-manager').classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        function renderFinalSetup(setup) {
-            const listEl = document.getElementById('final-setup-list');
-            listEl.innerHTML = '';
-            
-            setup.forEach(assignment => {
-                const alignmentClass = getAlignmentClass(assignment.alignment, 'bg');
-                const item = `
-                    <div class="p-3 rounded-lg border-b-2 border-l-2 ${alignmentClass} flex justify-between items-center shadow-inner">
-                        <span class="text-sm font-medium text-gray-400 ml-3">${assignment.role}:</span>
-                        <span class="text-lg font-extrabold text-white">${assignment.player}</span>
-                    </div>
-                `;
-                listEl.innerHTML += item;
-            });
-        }
-
-        // --- Timer Functions ---
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(managerTimeRemaining / 60);
-            const seconds = managerTimeRemaining % 60;
-            const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            document.getElementById('timer-display').innerText = display;
-            document.getElementById('timer-status').innerText = managerTimerStatus === 'running' ? 'در حال شمارش...' : 
-                                                               managerTimerStatus === 'paused' ? 'متوقف' : 'آماده به کار';
-            
-            // Visual feedback when time runs out
-            if (managerTimeRemaining <= 0 && managerTimerStatus === 'running') {
-                document.getElementById('timer-status').innerText = 'زمان به پایان رسید!';
-                document.getElementById('timer-display').classList.add('text-red-500');
-            } else {
-                document.getElementById('timer-display').classList.remove('text-red-500');
-            }
-        }
-
-        function timerTick() {
-            if (managerTimeRemaining > 0) {
-                managerTimeRemaining--;
-            } else {
-                clearInterval(managerTimerInterval);
-                managerTimerStatus = 'stopped';
-            }
-            updateTimerDisplay();
-        }
-
-        window.startTimer = function(type) {
-            if (managerTimerStatus === 'running') return;
-
-            let initialTime;
-            if (type === 'talk') {
-                initialTime = parseInt(document.getElementById('talk-time-input').value) || 60;
-            } else if (type === 'challenge') {
-                initialTime = parseInt(document.getElementById('challenge-time-input').value) || 30;
-            } else {
-                return;
-            }
-
-            // If stopped, reset time to initial value before running
-            if (managerTimerStatus === 'stopped' || managerTimeRemaining === 0) {
-                 managerTimeRemaining = initialTime;
-            }
-            
-            clearInterval(managerTimerInterval);
-            managerTimerStatus = 'running';
-            managerTimerInterval = setInterval(timerTick, 1000);
-            updateTimerDisplay();
-        }
-
-        window.pauseTimer = function() {
-            if (managerTimerStatus === 'running') {
-                clearInterval(managerTimerInterval);
-                managerTimerStatus = 'paused';
-                updateTimerDisplay();
-            }
-        }
-
-        window.resetTimer = function() {
-            clearInterval(managerTimerInterval);
-            managerTimerStatus = 'stopped';
-            managerTimeRemaining = 0;
-            updateTimerDisplay();
-        }
-
-
-        // --- General UI Functions ---
-
-        window.switchTab = function(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-button').forEach(el => {
-                el.classList.remove('border-accent', 'text-accent', 'font-bold');
-                el.classList.add('border-transparent', 'text-gray-400', 'hover:border-secondary-dark', 'hover:text-gray-200', 'font-medium');
-            });
-
-            document.getElementById(`content-${tabId}`).classList.remove('hidden');
-            document.getElementById(`tab-${tabId}`).classList.add('border-accent', 'text-accent', 'font-bold');
-            document.getElementById(`tab-${tabId}`).classList.remove('border-transparent', 'text-gray-400', 'hover:border-secondary-dark', 'hover:text-gray-200', 'font-medium');
-            
-            lucide.createIcons();
-            
-            // Special handling for manager tab on load
-            if (tabId === 'manager' && !document.getElementById('manager-scenario-select').value) {
-                document.getElementById('manager-setup-container').classList.add('hidden');
-                document.getElementById('game-live-manager').classList.add('hidden');
-            }
-        }
-
-        // --- Role Modal Functions ---
-        window.openModal = function(roleId, scenarioId) {
-            const scenario = SCENARIOS.find(s => s.id === scenarioId);
-            const role = scenario.roles.find(r => r.id === roleId);
-
-            if (!role) return;
-
-            document.getElementById('modal-role-title').innerText = role.name;
-            document.getElementById('modal-role-scenario').innerText = `سناریو مبدا: ${scenario.name}`;
-            document.getElementById('modal-role-description').innerText = role.description;
-
-            const alignmentEl = document.getElementById('modal-role-alignment');
-            alignmentEl.innerText = role.alignment;
-            alignmentEl.className = `inline-block px-3 py-1 rounded-full text-xs font-semibold border ${getAlignmentClass(role.alignment, 'bg')}`;
-
-            const modal = document.getElementById('role-modal');
-            modal.classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        window.closeModal = function() {
-            document.getElementById('role-modal').classList.add('hidden');
-        }
     </script>
 </body>
 </html>
