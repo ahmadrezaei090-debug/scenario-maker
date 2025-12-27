@@ -3,26 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موبایل استور | فروشگاه تخصصی گوشی</title>
-    <!-- Font Awesome برای آیکون‌ها -->
+    <title>موبایل استور | شهرقدس و شهریار</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Library برای انیمیشن‌ها -->
+    <!-- AOS Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;700;900&display=swap');
+
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --accent: #ff0055;
+            --bg-dark: #050b18;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
 
         body {
             font-family: 'Vazirmatn', sans-serif;
-            background-color: #0f172a;
+            background-color: var(--bg-dark);
             color: white;
             margin: 0;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* هدر و نویگیشن */
+        /* استایل سفارشی اسکرول بار */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050b18; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        /* هدر مدرن */
         header {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(5, 11, 24, 0.8);
+            backdrop-filter: blur(15px);
             padding: 1rem 5%;
             position: fixed;
             width: 90%;
@@ -31,26 +45,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #38bdf8;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(to left, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         nav a {
-            color: white;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             margin: 0 15px;
+            font-weight: 500;
             transition: 0.3s;
         }
 
-        nav a:hover {
-            color: #38bdf8;
-        }
+        nav a:hover { color: var(--primary); }
 
-        /* بخش هیرو (اول سایت) */
+        /* بخش هیرو */
         .hero {
             height: 100vh;
             display: flex;
@@ -58,235 +74,307 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            background: url('https://images.unsplash.com/photo-1616348436168-de43ad0db179?auto=format&fit=crop&q=80&w=2000') center/cover;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 11, 24, 0.85);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .delivery-tag {
+            background: linear-gradient(45deg, #1d976c, #93f9b9);
+            color: #000;
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(29, 151, 108, 0.4);
+            display: inline-block;
+            margin-bottom: 20px;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 4rem;
+            margin: 0;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
-        .delivery-badge {
-            background: #22c55e;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* استایل کارت‌های محصول */
-        .container {
-            padding: 80px 5%;
-        }
-
-        .section-title {
-            text-align: right;
-            border-right: 5px solid #38bdf8;
-            padding-right: 15px;
-            margin-bottom: 40px;
-            font-size: 2rem;
+        /* کارت‌های محصول پیشرفته */
+        .container { padding: 100px 8%; }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            border-right: 6px solid var(--primary);
+            padding-right: 20px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            transition: 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #38bdf8;
-        }
-
-        .card img {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-            margin-bottom: 15px;
-        }
-
-        .price {
-            color: #38bdf8;
-            font-size: 1.2rem;
-            font-weight: bold;
-            display: block;
-            margin: 10px 0;
-        }
-
-        .btn-buy {
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-        }
-
-        /* فوتر و اطلاعات تماس */
-        footer {
-            background: #020617;
-            padding: 50px 5%;
-            margin-top: 50px;
-        }
-
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
-        .contact-item i {
-            font-size: 2rem;
-            color: #38bdf8;
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            padding: 4px 12px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        .product-card img {
+            width: 100%;
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
             margin-bottom: 10px;
+            display: block;
         }
 
-        .social-link {
-            color: #fb7185;
-            font-size: 1.5rem;
+        .specs {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .price-tag {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 900;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .buy-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .buy-btn:hover {
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+            letter-spacing: 1px;
+        }
+
+        /* فوتر */
+        footer {
+            background: #020611;
+            padding: 80px 8% 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .info-box {
+            background: rgba(255,255,255,0.03);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .info-box i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .social-btn {
+            display: inline-block;
+            margin-top: 15px;
+            color: #ff0055;
             text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav { display: none; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">MOBILE <span style="color:white">SHOP</span></div>
+        <div class="logo">PHONIX <span style="color:white">STORE</span></div>
         <nav>
             <a href="#new">گوشی نو</a>
             <a href="#used">کارکرده</a>
-            <a href="#accessories">لوازم جانبی</a>
+            <a href="#acc">لوازم جانبی</a>
             <a href="#contact">تماس با ما</a>
         </nav>
+        <div class="cart-icon"><i class="fas fa-shopping-bag"></i></div>
     </header>
 
     <section class="hero">
-        <div data-aos="zoom-in">
-            <span class="delivery-badge"><i class="fas fa-truck"></i> ارسال سریع با پیک به تمام نقاط</span>
-            <h1>جدیدترین تکنولوژی در دستان شما</h1>
-            <p>مرکز تخصصی فروش گوشی‌های هوشمند و لوازم جانبی اورجینال</p>
+        <div class="hero-content" data-aos="zoom-out">
+            <div class="delivery-tag">
+                <i class="fas fa-motorcycle"></i> ارسال فوری به شهرقدس و شهریار
+            </div>
+            <h1>دنیای موبایل و تکنولوژی</h1>
+            <p>خرید مطمئن، قیمت رقابتی، ضمانت اصالت کالا</p>
+            <br>
+            <a href="#new" class="buy-btn" style="width: 200px; margin: 0 auto; text-decoration: none;">مشاهده محصولات</a>
         </div>
     </section>
 
     <!-- بخش گوشی های نو -->
-    <div class="container" id="new">
-        <h2 class="section-title" data-aos="fade-right">گوشی‌های نو</h2>
+    <section class="container" id="new">
+        <div class="section-header" data-aos="fade-right">
+            <h2>گوشی‌های آکبند (نو)</h2>
+        </div>
         <div class="grid">
-            <!-- کارت نمونه ۱ -->
-            <div class="card" data-aos="fade-up">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=iPhone+15" alt="گوشی">
-                <h3>iPhone 15 Pro Max</h3>
-                <span class="price">۸۵,۰۰۰,۰۰۰ تومان</span>
-                <button class="btn-buy">مشاهده و خرید</button>
+            <!-- محصول ۱ -->
+            <div class="product-card" data-aos="fade-up">
+                <span class="badge">موجود</span>
+                <img src="https://m.media-amazon.com/images/I/81SigAnN7iL._AC_SL1500_.jpg" alt="iphone">
+                <span class="product-title">iPhone 15 Pro Max</span>
+                <span class="specs">حافظه 256GB | رم 8GB | تک سیم</span>
+                <span class="price-tag">۸۷,۵۰۰,۰۰۰ تومان</span>
+                <button class="buy-btn"><i class="fas fa-cart-plus"></i> افزودن به سبد خرید</button>
             </div>
-            <!-- کارت نمونه ۲ -->
-            <div class="card" data-aos="fade-up" data-aos-delay="100">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=S24+Ultra" alt="گوشی">
-                <h3>Samsung S24 Ultra</h3>
-                <span class="price">۷۲,۰۰۰,۰۰۰ تومان</span>
-                <button class="btn-buy">مشاهده و خرید</button>
+            <!-- محصول ۲ -->
+            <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                <span class="badge">گارانتی ۱۸ ماهه</span>
+                <img src="https://m.media-amazon.com/images/I/71X8bbS8eRL._AC_SL1500_.jpg" alt="s24">
+                <span class="product-title">Samsung S24 Ultra</span>
+                <span class="specs">حافظه 512GB | رم 12GB | دوربین 200MP</span>
+                <span class="price-tag">۷۴,۲۰۰,۰۰۰ تومان</span>
+                <button class="buy-btn"><i class="fas fa-cart-plus"></i> افزودن به سبد خرید</button>
             </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="200">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Xiaomi+14" alt="گوشی">
-                <h3>Xiaomi 14 Pro</h3>
-                <span class="price">۴۵,۰۰۰,۰۰۰ تومان</span>
-                <button class="btn-buy">مشاهده و خرید</button>
+            <!-- محصول ۳ -->
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <span class="badge">پرچمدار</span>
+                <img src="https://m.media-amazon.com/images/I/51p62pD07tL._AC_SL1000_.jpg" alt="xiaomi">
+                <span class="product-title">Xiaomi 14 Ultra</span>
+                <span class="specs">حافظه 512GB | لنز لایکا | شارژر ۹۰ وات</span>
+                <span class="price-tag">۶۱,۰۰۰,۰۰۰ تومان</span>
+                <button class="buy-btn"><i class="fas fa-cart-plus"></i> افزودن به سبد خرید</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- بخش گوشی های دست دوم -->
-    <div class="container" id="used" style="background: rgba(255,255,255,0.02)">
-        <h2 class="section-title" data-aos="fade-right">گوشی‌های دست دوم (در حد نو)</h2>
+    <!-- بخش گوشی های کارکرده -->
+    <section class="container" id="used" style="background: rgba(0,0,0,0.2);">
+        <div class="section-header" data-aos="fade-right">
+            <h2>گوشی‌های کارکرده (در حد نو)</h2>
+        </div>
         <div class="grid">
-            <div class="card" data-aos="flip-left">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=iPhone+13" alt="گوشی">
-                <h3>iPhone 13 (Used)</h3>
-                <span class="price">۳۲,۰۰۰,۰۰۰ تومان</span>
-                <button class="btn-buy" style="background:#94a3b8">جزئیات سلامت باتری</button>
-            </div>
-            <div class="card" data-aos="flip-left" data-aos-delay="100">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=S21+FE" alt="گوشی">
-                <h3>Samsung S21 FE</h3>
-                <span class="price">۱۸,۵۰۰,۰۰۰ تومان</span>
-                <button class="btn-buy" style="background:#94a3b8">جزئیات سلامت باتری</button>
+            <div class="product-card" data-aos="flip-right">
+                <span class="badge" style="background: #fbbf24; color: #000;">سلامت باتری ۹۵٪</span>
+                <img src="https://m.media-amazon.com/images/I/61m6Dj96u6L._AC_SL1500_.jpg" alt="iphone13">
+                <span class="product-title">iPhone 13 کارکرده</span>
+                <span class="specs">مشابه آکبند | بدون خط و خش</span>
+                <span class="price-tag">۳۴,۸۰۰,۰۰۰ تومان</span>
+                <button class="buy-btn" style="background: #475569;">مشاهده تصاویر واقعی</button>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- بخش لوازم جانبی -->
-    <div class="container" id="accessories">
-        <h2 class="section-title" data-aos="fade-right">قاب و ایرپاد</h2>
+    <section class="container" id="acc">
+        <div class="section-header" data-aos="fade-right">
+            <h2>قاب، ایرپاد و اکسسوری</h2>
+        </div>
         <div class="grid">
-            <div class="card" data-aos="zoom-in">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Airpods" alt="ایرپاد">
-                <h3>AirPods Pro 2</h3>
-                <span class="price">۱۲,۴۰۰,۰۰۰ تومان</span>
-                <button class="btn-buy">خرید</button>
+            <div class="product-card" data-aos="zoom-in">
+                <img src="https://m.media-amazon.com/images/I/61SUj2W5ySL._AC_SL1500_.jpg" alt="airpods">
+                <span class="product-title">AirPods Pro 2 (2023)</span>
+                <span class="price-tag">۱۱,۹۰۰,۰۰۰ تومان</span>
+                <button class="buy-btn"><i class="fas fa-shopping-cart"></i> خرید نقدی</button>
             </div>
-            <div class="card" data-aos="zoom-in" data-aos-delay="100">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Case" alt="قاب">
-                <h3>قاب سیلیکونی اصل</h3>
-                <span class="price">۴۵۰,۰۰۰ تومان</span>
-                <button class="btn-buy">خرید</button>
+            <div class="product-card" data-aos="zoom-in" data-aos-delay="100">
+                <img src="https://m.media-amazon.com/images/I/619mS5N-0HL._AC_SL1500_.jpg" alt="case">
+                <span class="product-title">قاب مگ‌سیف اصلی</span>
+                <span class="price-tag">۸۵۰,۰۰۰ تومان</span>
+                <button class="buy-btn"><i class="fas fa-shopping-cart"></i> خرید نقدی</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- فوتر و تماس -->
+    <!-- فوتر -->
     <footer id="contact">
-        <div class="contact-info">
-            <div class="contact-item" data-aos="fade-up">
-                <i class="fas fa-phone"></i>
-                <h3>تلفن تماس</h3>
-                <p>شماره صاحب مغازه: [اینجا بنویس]</p>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="info-box" data-aos="fade-up">
+                <i class="fas fa-phone-alt"></i>
+                <h3>تماس با مدیریت</h3>
+                <p>شماره تماس: [شماره صاحب مغازه را اینجا وارد کنید]</p>
             </div>
-            <div class="contact-item" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-map-marker-alt"></i>
-                <h3>آدرس فروشگاه</h3>
-                <p>[آدرس شما اینجا قرار می‌گیرد]</p>
+            <div class="info-box" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-store"></i>
+                <h3>آدرس حضوری</h3>
+                <p>[آدرس دقیق در شهرقدس یا شهریار را اینجا وارد کنید]</p>
             </div>
-            <div class="contact-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="info-box" data-aos="fade-up" data-aos-delay="200">
                 <i class="fab fa-instagram"></i>
-                <h3>اینستاگرام</h3>
-                <p><a href="#" class="social-link">@[پیج شما]</a></p>
+                <h3>اینستاگرام ما</h3>
+                <p><a href="#" class="social-btn">@[پیج اینستاگرام]</a></p>
             </div>
         </div>
-        <div style="text-align: center; margin-top: 50px; opacity: 0.5;">
-            <p>طراحی شده برای دمو فروشگاه موبایل</p>
-        </div>
+        <p style="text-align: center; margin-top: 50px; color: #555;">&copy; تمامی حقوق برای فروشگاه محفوظ است | ۱۴۰۲</p>
     </footer>
 
-    <!-- اسکریپت‌های انیمیشن -->
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
             duration: 1000,
-            once: true
+            once: false,
+            mirror: true
+        });
+
+        // افکت کلیک روی دکمه خرید
+        document.querySelectorAll('.buy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('این یک نسخه دمو است. برای خرید واقعی با شماره مدیر تماس بگیرید.');
+            });
         });
     </script>
 </body>
